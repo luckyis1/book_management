@@ -1,9 +1,8 @@
-package com.lucky.datasource;
+package com.lucky.persistence;
 
-import java.sql.Connection;
+import static org.junit.Assert.fail;
 
 import javax.inject.Inject;
-import javax.sql.DataSource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,22 +11,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.lucky.datasource.ConnectionTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
-public class ConnectionTest {
+public class SimpleDAOTest{
 
 	private static final Logger logger = LoggerFactory.getLogger(ConnectionTest.class);
 	
 	@Inject
-	DataSource ds;
+	SimpleDAO dao;
 	
 	@Test
 	public void test() throws Exception {
-		Connection con = ds.getConnection();
-		logger.info(con.toString());
-		con.close();
-		
+		logger.info(dao.getTimeNow());
 	}
 
 }
