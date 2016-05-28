@@ -20,7 +20,7 @@ public class ConnectionTest {
 	private static final Logger logger = LoggerFactory.getLogger(ConnectionTest.class);
 	
 	@Inject
-	DataSource ds;
+	private DataSource ds;
 	
 	@Test
 	public void test() throws Exception {
