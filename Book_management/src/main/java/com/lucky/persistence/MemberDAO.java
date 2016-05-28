@@ -3,6 +3,7 @@ package com.lucky.persistence;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,8 +57,54 @@ public class MemberDAO {
 			vo.setUpdatedate(rs.getDate(i++));
 			list.add(vo);
 		}
-		
+		con.close();
 		return list;
 	}
 	
+	public void deleteMember(String id) throws SQLException{
+		String sql = "delete from tbl_member where id = ?";
+		
+		Connection con = dataSource.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, id);
+		pstmt.executeUpdate();
+		
+		con.close();
+		
+	}
+	
+	public void updateMember(MemberVO vo) throws Exception{
+		String sql = "update tbl_member set pwd = ?,email=?, updatedate = now() where id= ? ";
+		Connection con = dataSource.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, vo.getPwd());
+		pstmt.setString(2, vo.getEmail());
+		pstmt.setString(3, vo.getId());
+		
+		pstmt.executeUpdate();
+		
+		con.close();
+		
+		
+	}
+	
+	public MemberVO selectMember(String id) throws SQLException{
+		String sql = "select * from tbl_member where id = ? ";
+		Connection con = dataSource.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql);
+	    pstmt.setString(1, id);
+	    
+	    ResultSet rs=pstmt.executeQuery();
+	    rs.next();
+	    MemberVO vo=new MemberVO();
+	    int i=1;
+	    vo.setId(rs.getString(i++));
+	    vo.setPwd(rs.getString(i++));
+	    vo.setName(rs.getString(i++));
+	    vo.setEmail(rs.getString(i++));
+	    vo.setJumin(rs.getString(i++));
+	    vo.setRegdate(rs.getDate(i++));
+	    vo.setUpdatedate(rs.getDate(i++));
+	    return vo;
+	}
 }

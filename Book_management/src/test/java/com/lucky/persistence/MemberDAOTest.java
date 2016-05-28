@@ -43,5 +43,19 @@ public class MemberDAOTest {
 			logger.info(memberVO.toString());
 		}
 	}
+	@Test
+	public void deleteTest() throws Exception {
+		String id="Insung";
+		dao.deleteMember(id);
+	}
+
+	@Test
+	public void updateTest() throws Exception {
+		String id="Insung";
+		MemberVO vo= dao.selectMember(id);
+		vo.setPwd("rlaguswns3");
+		vo.setEmail("test2@naver.com");
+		dao.updateMember(vo);
+	}
 
 }
