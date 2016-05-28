@@ -19,7 +19,7 @@ public class ApplicationContextTest {
 	private static final Logger logger = LoggerFactory.getLogger(ApplicationContextTest.class);
 	
 	@Inject
-	ApplicationContext ctx;
+	private ApplicationContext ctx;
 	
 	@Test
 	public void test() {

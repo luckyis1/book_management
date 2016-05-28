@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SimpleDAO {
 	@Inject
-	DataSource dataSource;
+	private DataSource dataSource;
 	
 	public String getTimeNow() throws Exception{
 		Connection con = dataSource.getConnection();

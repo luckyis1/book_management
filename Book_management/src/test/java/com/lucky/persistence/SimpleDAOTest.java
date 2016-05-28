@@ -20,7 +20,7 @@ public class SimpleDAOTest{
 	private static final Logger logger = LoggerFactory.getLogger(ConnectionTest.class);
 	
 	@Inject
-	SimpleDAO dao;
+	private SimpleDAO dao;
 	
 	@Test
 	public void test() throws Exception {
