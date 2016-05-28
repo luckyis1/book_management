@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lucky.mapper.MemberMapper">
+	<select id="selectAll" resultType="com.lucky.domain.MemberVO">
+		select * from tbl_member
+	</select>
+
+	<update id="update" parameterType="com.lucky.domain.MemberVO">
+		update tbl_member set pwd=#{pwd},email=#{email}, jumin=#{jumin}, updatedate=now() where id= #{id}
+
+	</update>
+
+	<select id="selectOne" resultType="com.lucky.domain.MemberVO" parameterType="string">
+		select * from tbl_member where id=#{id}
+	</select>
+
+	<delete id="delete"><!-- 파라미터 타입과 ResultType이 디폴트인경우 생략이 가능 -->
+		delete from tbl_member where id = #{id}
+	</delete>
+
+	<insert id="insert" parameterType="com.lucky.domain.MemberVO">
+		insert into tbl_member(id, pwd, name, email,jumin) values(#{id},#{pwd},#{name},#{email},#{jumin});
+	</insert>
+</mapper>

@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
 
-	<bean 
+	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="url" value="jdbc:log4jdbc:mysql://localhost:3306/book_management"></property>
+		<property name="url"
+			value="jdbc:log4jdbc:mysql://localhost:3306/book_management"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="1234"></property>
 	</bean>
-	
-	
+
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+		<property value="classpath:mybatis-config.xml" name="configLocation" />
+		<property name="mapperLocations" value="classpath:mappers/**/*.xml"></property>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+		<constructor-arg ref="sqlSessionFactory" index="0" />
+	</bean>
 	<context:component-scan base-package="com.lucky.persistence" />
-	
+	<context:component-scan base-package="com.lucky.service" />
+
 </beans>

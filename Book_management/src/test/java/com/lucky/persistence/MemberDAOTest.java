@@ -25,36 +25,37 @@ public class MemberDAOTest {
 	private MemberDAO dao;
 
 	@Test
-	public void insertTest() throws Exception {
+	public void insertTest(){
 		MemberVO vo = new MemberVO();
 		vo.setId("Insung");
 		vo.setPwd("1234");
 		vo.setName("cocomong");
-		vo.setEmail("test@naver.com");
-		vo.setJumin("8301237");
+		vo.setEmail("hyun@naver.com");
+		vo.setJumin("930625");
 		
 		dao.insertMember(vo);
 	}
 	
 	@Test
-	public void selectTest() throws Exception {
+	public void selectTest(){
 		List<MemberVO> list=dao.selectAll();
 		for (MemberVO memberVO : list) {
 			logger.info(memberVO.toString());
 		}
 	}
 	@Test
-	public void deleteTest() throws Exception {
+	public void deleteTest() {
 		String id="Insung";
 		dao.deleteMember(id);
 	}
 
 	@Test
-	public void updateTest() throws Exception {
+	public void updateTest(){
 		String id="Insung";
 		MemberVO vo= dao.selectMember(id);
-		vo.setPwd("rlaguswns3");
-		vo.setEmail("test2@naver.com");
+		//vo.setPwd("insung");
+		vo.setEmail("insung@naver.com");
+		vo.setJumin("890510");
 		dao.updateMember(vo);
 	}
 
