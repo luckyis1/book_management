@@ -38,12 +38,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
-	public String memberJoinGET(@PathVariable(value="id") String id,
+	public @ResponseBody MemberVO memberJoinGET(@PathVariable(value="id") String id
 								//@PathVariable(value="name") String name, 
-								Model model){//화면을 보여주는애
-		model.addAttribute(memberService.getMember(id));
+								//Model model 기존에 페이지 전환 방식을 json 방식으로 변환
+								){//화면을 보여주는애
 		logger.info(id);
-		return "member/member_info";
+		return memberService.getMember(id);
 	}
 	
 	
@@ -52,6 +52,12 @@ public class MemberController {
 		logger.info(vo.toString());
 		memberService.insertMember(vo);
 		return "redirect:/member";
+	}
+	
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+	public @ResponseBody String memberDeletePOST(@PathVariable(value="id") String id){
+		memberService.deleteMember(id);
+		return "SUCCESS";
 	}
 	
 	@RequestMapping(value = "/json", method = RequestMethod.GET)
